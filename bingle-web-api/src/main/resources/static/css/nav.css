@@ -1,0 +1,34 @@
+nav {
+    background-color: #363636;
+    box-shadow: 0 7px 20px rgba(0,0,0,0.17);
+}
+
+#login-btn {
+    background-color: #303030;
+    padding-left: 20px;
+    border: 1px solid;
+    padding-right: 20px;
+}
+
+#register-btn {
+    background-color: #303030;
+    padding-left: 20px;
+    border: 1px solid;
+    padding-right: 20px;
+} 
+
+.sign-out-btn {
+    background-color: #303030;
+    padding-left: 20px;
+    border: 1px solid;
+    padding-right: 20px;
+}
+
+#navbarMain ul .nav-item {
+    margin: 0 5px;
+}
+
+#crawler-load {
+    height: 20px;
+    margin-bottom: 4px;
+}

@@ -1,0 +1,29 @@
+body {
+    padding: 5rem;
+}
+
+main {
+    padding: 3rem;
+    padding-top: 1rem;
+}
+
+.content {
+    margin-top: 3rem;
+}
+
+.listing-header {
+    margin-bottom: 30px;
+}
+
+.img-holder {
+    padding: 30px;
+}
+
+.listing-data {
+    font-weight: 600;
+}
+
+i.fa-book-open {
+    font-size: 130px;
+    margin-top: 5px;
+}

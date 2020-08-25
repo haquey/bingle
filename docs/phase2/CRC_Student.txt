@@ -1,0 +1,12 @@
+Class name: Student 
+
+Parent class (if any): Account 
+
+Classname Subclasses (if any): None 
+
+Responsibilities: 
+
+* User to enforce seperation of Student and Instructor privileges
+
+Collaborators:
+* MongoRepo

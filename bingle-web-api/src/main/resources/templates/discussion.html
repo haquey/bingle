@@ -1,0 +1,215 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/discussion.css}" href="../static/css/discussion.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+
+    <main role="main">
+
+    <div class="row">    
+    <div class="col-sm-9">
+        <div class="heading">
+            <h1>Discussion Board</h1>
+
+            <div class="input-group" id='discussion-search'>
+                    <input type="text" class="form-control search" placeholder="Search threads">
+                    <div class="input-group-btn">
+                        <button id="search-btn" class="btn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+        </div>
+    
+    <div class="content container" id='threads'>
+        
+        <div class="row thread" th:each="thread : ${threads}" th:id="${thread.id}" th:with="id=${thread.id}">
+            <div class="col-sm-1 thread-vote">
+                <div class="vote-btn upvote" th:style=" (${session.user != null} ? ( ${session.user?.voted['__${id}__'] == 1} ? 'color:orange' : 'color:black'))">
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <label th:text="${thread.voteCount}" class="votes">57</label>
+                <div class="vote-btn downvote" th:style=" (${session.user != null} ? ( ${session.user?.voted['__${id}__'] == -1} ? 'color:blue' : 'color:black'))">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-sm-5 thread-title">
+                <!-- <h3 th:text="${thread.title}">This is a test thread.</h3> -->
+                <a th:href="@{'/discussion/posts/' + ${thread.id}}" th:text="${thread.title}">This is a test thread.</a>
+                <label th:text="|By ${thread.name} at ${#dates.format(thread.createdAt, 'MMM-dd-yyyy')}|">By Someone at 12:23pm 11/11/1111</label>
+            </div>
+            
+            <div class="col-sm-4 thread-tags">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-top: 7px;color: #363636;">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        <label>Tags</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div th:if="${thread.tags != null}" class="col-sm-12 tag-holder">
+                        <label th:each="tag : ${thread.tags}" th:text="${tag}"></label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-sm-2 thread-stats" th:unless="${session.user?.admin}">
+                    <div class="stat">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <label th:text="${thread.viewCount}">0</label>
+                    </div>
+                    <div>
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        <label th:text="${thread.postCount}">0</label>
+                    </div>
+                </div>
+
+            <div class="col-sm-1 thread-stats" th:if="${session.user?.admin}">
+                <div class="stat">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <label th:text="${thread.viewCount}">0</label>
+                </div>
+                <div>
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <label th:text="${thread.postCount}">0</label>
+                </div>
+            </div>
+
+            <div class="col-sm-1 thread-delete" th:if="${session.user?.admin}">
+                <div class="trash-btn">
+                    <button class="btn delete-thread-btn" th:data-id="${thread.id}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        
+    </div>
+
+    </div>
+
+    <div class="col-sm-3 thread-side">
+        <button id="btn-new-thread" class="btn btn-md btn-block" data-toggle="modal" data-target="#new-post-modal">
+            Create New Thread
+        </button>
+        <div th:if="${session.user != null}">
+            <h5 class="logged-in-label">Logged in as:</h5>
+        </div>
+        <div th:if="${session.user != null}" class="user-info">
+
+            <h3 th:text="${session.user.username}"></h3>
+        </div>
+    </div>
+</div> 
+    </main>
+
+    <div class="modal fade" id="new-post-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create New Thread</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+
+                        <h4>Title</h4>
+
+
+                        <div id="newpost-div">
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="title-input" placeholder="Title">
+                            </div>
+                            <div class="input-group mb-2">
+                                <textarea rows='10' cols='50' id="thread-input"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="tags-input" placeholder="(Optional) Tags (Seperate each by a ';' )">
+                            </div>
+                        </div>
+                                            
+
+
+                    </div>
+                        
+            
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="disc-submitInfo">Submit</button>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+
+    
+  <script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+  <script src="../static/js/discussion.js" th:src="@{/js/discussion.js}"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        console.log(/*[[${session.user}]]*/);
+        var q = /*[[${session.user}]]*/ null;
+        console.log(q);
+        var deleteUrl = /*[[@{/threads/delete}]]*/ null;
+        var userDNE = /*[[${session.user == null}]]*/ null;
+        if (userDNE) {
+            sessionStorage.setItem("logged in", false);
+            $('#btn-new-thread').attr('data-target','#loginModal');
+        }
+        else{
+            sessionStorage.setItem("logged in", true);
+        }
+
+        $(".delete-thread-btn").click(function () {
+            var threadId = $(this).attr('data-id');
+            var threadUrl = deleteUrl + '/' + threadId;
+            var thisThread = $(this)
+
+                $.ajax({
+                    type: "DELETE",
+                    url: threadUrl,
+                    contentType: "application/json",
+                    success: function (data) {
+                        thisThread.closest('.thread').fadeOut();
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+                });
+            });
+
+
+    });
+    /*]]>*/
+    </script>
+
+  
+
+  
+</body>
+</html>

@@ -1,0 +1,14 @@
+Class name: Listing
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Object containing information regarding Listing instances
+* Creates, updates and deletes Listings from the database
+
+Collaborators:
+* Tag
+* Account
+* MongoRepo

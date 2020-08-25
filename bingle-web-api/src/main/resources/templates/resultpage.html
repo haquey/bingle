@@ -1,0 +1,288 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/discussion.css}" href="../static/css/discussion.css">
+  <link rel="stylesheet" th:href="@{/css/resultpage.css}" href="../static/css/resultpage.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+
+<!-- <div class="row">
+      <div class="col-sm-11"></div>
+      <div class="col-sm-1">
+          <div class="register">
+            <button id="register-btn" class="btn btn-dark btn-lg pull-right" data-toggle="modal" data-target="#registerModal">
+                    Register
+                </button>
+          </div>
+        </div>
+</div> -->
+
+
+<div id="view-listing" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="show-listing-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-sm-5 text-center">
+                                <div class="img-holder img-thumbnail">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-7">
+                
+                                <div class="row">
+                                    <div class="col-sm-3 text-right">
+                                        <label><i class="fas fa-eye"></i></label>
+                                    </div>
+                                    <div class="col listing-data">
+                                        <label id="show-listing-viewcount">...</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-sm-3 text-right">
+                                            <label>Category:</label>
+                                        </div>
+                                        <div class="col listing-data">
+                                            <label id="show-listing-category">...</label>
+                                        </div>
+                                    </div>
+                
+                                <div class="row">
+                                    <div class="col-sm-3 text-right">
+                                        <label>Price:</label>
+                                    </div>
+                                    <div class="col listing-data">
+                                        <label id="show-listing-price">...</label>
+                                    </div>
+                                </div>
+                
+                                <div class="row">
+                                    <div class="col-sm-3 text-right">
+                                        <label>Posted By:</i></label>
+                                    </div>
+                                    <div class="col listing-data">
+                                        <label id="show-listing-user">...</label>
+                                    </div>
+                                </div>
+                
+                                <div class="row">
+                                    <div class="col-sm-3 text-right">
+                                        <label>Phone No:</i></label>
+                                    </div>
+                                    <div class="col listing-data">
+                                        <label id="show-listing-phone">...</label>
+                                    </div>
+                                </div>
+                
+                                <div class="row">
+                                    <div class="col-sm-3 text-right">
+                                        <label>E-mail:</i></label>
+                                    </div>
+                                    <div class="col listing-data">
+                                        <label id="show-listing-email">...</label>
+                                    </div>
+                                </div>
+                
+                                <div class="row">
+                                        <div class="col-sm-3 text-right">
+                                            <label>Description:</i></label>
+                                        </div>
+                                        <div class="col listing-data">
+                                            <label id="show-listing-desc">...</label>
+                                        </div>
+                                </div>
+                
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div id="view-listing-btns" class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+    </div>
+  </div>
+
+
+
+<div class="modal fade" id="registerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+      <div class="modal-header">
+        <h4 class="modal-title">Register Account</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<main role="main">
+
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="search-heading">
+        <form class="input-group" id="queryForm">
+          <div class="input-group">
+            <input type="text" id = "queryString" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+              <button id="search-btn" class="btn btn-dark" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row" style="width:100%;">
+            <div class="col-sm-5">
+              <div class="row" style="margin-top: 4px;">
+
+                  <div class="col-sm-3 search-by"> 
+                      <input type="radio" name="option" value="All" id="All">
+                      <label class="radio-inline">
+                          All
+                      </label>
+                    </div>
+                    <div class="col-sm-3 search-by">
+                        <input type="radio" name="option" value="Tag" id="Tag">
+                        <label class="radio-inline">
+                            Tag
+                          </label>
+                    </div>
+                    <div class="col-sm-3 search-by">
+                        <input type="radio" name="option" value="Title" id="Title">
+                        <label class="radio-inline">
+                            Title
+                        </label>
+                    </div>
+                    <div class="col-sm-3 search-by">
+                        
+
+                          <input type="radio" name="option" value="Content" id="Content" >
+                        <label class="radio-inline"> 
+                            Content
+                        </label>
+                    </div>
+              </div>
+               
+            </div>
+              
+
+
+          </div>
+          
+        </form>
+      </div>
+
+      <div class="content container" id='results'>
+
+          <button class="accordion">Files</button>
+          <div id="file-panel" class="panel">
+          </div>
+          
+          <button class="accordion">Discussion Board</button>
+          <div id="disc-panel" class="panel">
+          </div>
+          
+          <button class="accordion">Marketplace</button>
+          <div id="market-panel" class="panel">
+          </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-3 right-fix">
+      <div class="search-results bg-dark">
+        <h3>Search Results</h4>
+          <div class="row">
+              <div class="col-sm-9 searchstat text-right"><h4>Files Found: </h4></div>
+              <div class="col-sm-3 searchstat"><h4 id="file-results"></h4></div>          
+          </div>
+          
+          <div class="row">
+              <div class="col-sm-9 searchstat text-right"><h4>Threads Found: </h4></div>
+              <div class="col-sm-3 searchstat"><h4 id="thread-results"></h4></div>          
+          </div>
+
+          <div class="row">
+              <div class="col-sm-9 searchstat text-right"><h4>Listings Found: </h4></div>
+              <div class="col-sm-3 searchstat"><h4 id="marketplace-results"></h4></div>          
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<div class="modal fade" id="new-post-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Create new post</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+
+        <h4>Title</h4>
+
+
+        <div id="newpost-div">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control" id="title-input" placeholder="Title">
+          </div>
+          <div class="input-group mb-2">
+            <textarea rows='10' cols='50' id="thread-input"></textarea>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="submitInfo">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+<script src="../static/js/resultpage.js" th:src="@{/js/resultpage.js}"></script>
+
+
+</body>
+</html>

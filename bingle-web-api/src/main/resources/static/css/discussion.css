@@ -1,0 +1,190 @@
+body {
+    padding-top: 5rem;
+    background-color: #f0f0f0;
+}
+
+main {
+    margin: 15px;
+}
+
+h1 {
+    color: #363636;
+}
+
+#search-btn {
+    border-radius: 0px 5px 5px 0px;
+    background-color: #363636;
+    border: 1px solid #363636;
+    color: #fff;
+}
+
+#btn-new-thread {
+    background-color: #363636;
+    border: 1px solid #363636;
+    color: #fff;
+}
+
+.heading {
+    margin-left: 25px;
+}
+
+.thread {
+    min-height: 50px;
+    padding: 15px 3px;
+    margin-left: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.17);
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #fff;
+}
+
+.thread:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.27);
+}
+
+.border {
+    border: 1px solid;
+}
+
+.thread-vote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 6.5%;
+}
+
+.thread-vote label {
+    margin-bottom: 0;
+}
+
+.thread-title {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.thread-title a {
+    color: #363636;
+}
+
+.thread-title label {
+    margin-bottom: 0;
+    font-size: 12px;
+    margin-left: 5px;
+    color: grey;
+}
+
+.input-group textarea {
+    width: 100%;
+}
+
+.thread-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #f0f0f0;
+    color: #363636;
+}
+
+.thread-stats label {
+    margin-bottom: 0;
+    margin-left: 2px;
+}
+
+.thread-delete {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    padding-right: 0;
+    text-align: center;
+    border-left: 1px solid #f0f0f0;
+}
+
+.thread-delete .trash-btn .delete-thread-btn:hover{
+    background-color: #dc3545;
+}
+
+.thread-delete i {
+    font-size: 20px;
+    color: #fff;
+}
+
+.delete-thread-btn {
+    padding: 5px 11px;
+    background-color: #363636;
+    border: 1px solid #363636;
+    color: #fff;
+}
+
+#discussion-search {
+    margin-bottom: 30px;
+}
+
+.vote-btn {
+    width: 100%;
+    text-align: center;
+}
+
+.vote-btn.upvote:hover {
+    color: rgb(255, 204, 110);
+}
+
+.vote-btn.downvote:hover {
+    color: #6083d0;
+}
+
+.vote-btn i {
+    font-size: 21px;
+}
+
+.tag-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-holder label {
+    padding: 5px;
+    margin: 0;
+    color: white;
+    border-radius: 5px;
+    font-size: 9px;
+    margin: 2px;
+    background-color: #363636;
+    border: 1px solid #363636;
+}
+
+.thread-side {
+    position: fixed;
+    right: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.logged-in-label {
+    text-align: center;
+    margin-top: 22px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.user-info h3 {
+    margin: 0px 5px;
+    text-align: center;
+}

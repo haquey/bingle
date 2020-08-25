@@ -1,0 +1,12 @@
+Class name: Account
+
+Parent class (if any): None
+
+Classname Subclasses (if any): Instructor, Student
+
+Responsibilities:
+* Object containing information regarding Account instances
+* Creates, updates and deletes Accounts from the database
+
+Collaborators:
+* MongoRepo

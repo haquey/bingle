@@ -1,0 +1,11 @@
+Class name: MongoRepo
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Interfaces with the model objects and the MongoDB database to handle queries and various methods
+
+Collaborators:
+* Spring Data MongoDB (Library from the Spring Framework)

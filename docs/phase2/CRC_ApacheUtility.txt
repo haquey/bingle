@@ -1,0 +1,11 @@
+Class name: ApacheUtility
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Contains utility methods used for interacting with Apache Lucene
+
+Collaborators:
+* Apache Lucene

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Bingle</title>
+    <meta name="description" content="The one-stop academic search engine platform.">
+    <meta name="author" content="TEAM6">
+
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="../static/css/home.css">
+    <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+    <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+
+<body>
+	<div class="homepage">
+	    <div th:replace="fragments/header :: header">
+	    </div>
+
+
+<main role="main" class="container">
+    <div class="content">
+        <h1>Bingle</h1>
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="filesToUpload" class="form-control-file" id="filesToUpload" placeholder="Upload file" multiple="multiple"/>
+        <div class="input-group" style="margin-top:10px;">
+            <input type="text" name="file_name" class="form-control" id="filename" placeholder="File name"/>
+            <input type="text" name="tags" class="form-control" id="tags" placeholder="Tags"/>
+          <button id="search-btn" class="btn btn-dark" type="submit">Upload</button>
+        </div>
+        </form>
+    </div>
+</main>
+</div>
+
+
+<script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function() {
+    $("#nav-site #nav-upload").addClass("active");
+});
+/*]]>*/
+</script>
+    
+
+</body>
+</html>

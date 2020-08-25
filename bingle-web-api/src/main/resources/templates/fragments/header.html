@@ -1,0 +1,171 @@
+<div th:fragment="header">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" >
+    <!--<a class="navbar-brand" href="/">Navbar</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+        <ul id="nav-site" class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a id="nav-home" class="nav-link" href="/" th:href="@{/}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a id="nav-discussion" class="nav-link" href="/discussion" th:href="@{/discussion}"><i class="fas fa-comment-alt"></i> Discussion</a>
+            </li>
+            <li class="nav-item">
+                <a id="nav-marketplace" class="nav-link" href="/marketplace" th:href="@{/marketplace}"><i class="fas fa-handshake"></i> Marketplace</a>
+            </li>
+            <li class="nav-item">
+                    <a id="nav-leaderboard" class="nav-link" href="/leaderboard" th:href="@{/leaderboard}"><i class="fas fa-signal"></i> Leaderboard</a>
+            </li>
+            <li class="nav-item" th:if="${session.user != null}">
+                    <a id="nav-upload" class="nav-link" href="/upload" th:href="@{/upload}"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
+                </li>
+            <li id="nav-crawler-off" class="nav-item" th:if="${session.user?.admin} AND ${session.crawler} == null">
+                    <a id="nav-crawler" class="nav-link" href="/crawl" th:href="@{/crawl}"><i class="fab fa-connectdevelop"></i> Crawler</a>
+            </li>
+            <li id="nav-crawler-on" class="nav-item" th:if="${session.user?.admin} AND ${session.crawler} != null">
+                    <a id="nav-crawler" class="nav-link" href="/crawl" th:href="@{/crawl}"><img id="crawler-load" th:src="@{/assets/crawler_loading.svg}"/> Crawler</a>
+            </li>
+
+        </ul>
+
+        
+        
+        <ul class = "navbar-nav nav-right">
+            <li class="nav-item" th:if="${session.user != null}">
+                <a id="nav-profile" class="nav-link" href="/profile" th:href="@{/profile}" th:inline="text"><i class="fas fa-user"></i> [[${session.user.username}]]</a>
+            </li>
+            <li class="nav-item" th:if="${session.user == null}">
+                <button id="login-btn" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
+                    Login
+                </button>
+             </li>
+            <li class="nav-item" th:if="${session.user == null}">
+                <button id="register-btn" class="btn nav-link" data-toggle="modal" data-target="#registerModal">
+                    Register
+                </button>
+            </li>
+            <li class="nav-item" id="signOut" th:if="${session.user != null}">
+                <form method="get" action="/logout" enctype="application/json">
+                    <button  class="btn nav-link sign-out-btn" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+
+<div class="modal fade" id="registerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               
+                
+                    <div class="modal-header">
+                        <h4 class="modal-title">Register Account</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+
+                        <h4>Basic Information</h4>
+
+                        <!-- Enter Name -->
+                        <div id="registerInfo-div">
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="fname-inpt" placeholder="First Name">
+                                    <input type="text" class="form-control" id="lname-inpt" placeholder="Last Name">
+                            </div>
+
+                                            
+                            <!-- Enter email -->
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Email</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="email-inpt" placeholder="Email">
+                            </div>
+                        </div>
+
+                        <h4>Account Type</h4>
+
+                        <div id="registerInfo-div">
+                            <!-- Used to select account type -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" name="AccType" id="studentType-btn">
+                                    Student
+                                </button>
+                                <button type="button" class="btn" name="AccType" id="instructorType-btn">
+                                        Teacher
+                                </button>
+                            </div>
+                        </div>
+
+                        <h4>Account Information</h4>
+                        
+                        <div id="registerInfo-div">
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            Username
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="username-inpt" placeholder="User Name">
+                                
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Password
+                                    </span>
+                                </div>
+                                <input type="password" class="form-control" id="password-inpt" placeholder="Password">
+                            </div>
+                            <p id="registerError" class="text-danger"></p>
+                        </div>
+                        
+                    </div>
+                    
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="submitInfo">Submit</button>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog">
+            
+
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Sign in</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+              
+                <form id="loginForm">
+                    <div class="modal-body">
+                        <div class="input-group mb-2">
+                            <input id = "loginName" name = "username" class="form-control mr-sm-2 username" type="text" placeholder="Username" aria-label="Username">
+                        </div>
+                        <div class="input-group mb-2">
+                            <input id = "loginPassword" name = "password" class="form-control mr-sm-2 password" type="password" placeholder="Password" aria-label="Password">
+                        </div>
+                        <p id="loginError" class="text-warning"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button  class="btn btn-success"  type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,39 @@
+.box {
+	width: 600px;
+	height: 200px;
+	border-style: double;
+    border-color: black;
+    border-width: 5px;
+    border-radius: 5px;
+    padding: 25px;
+    margin: auto;
+    margin-top: 4vw;
+}
+
+.username {
+	margin-bottom: 5px;
+}
+
+.password {
+	margin-bottom: 20px;
+}
+
+.login-btn {
+	float: right;
+}
+
+body {
+    padding-top: 5rem;
+}
+
+.content {
+    text-align: center;
+}
+
+.logo {
+	margin-top: 4vw;
+	height: 92px;
+	width: 272px;
+	
+}
+

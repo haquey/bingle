@@ -1,0 +1,14 @@
+Class name: IndexUploads
+
+Parent class (if any): Index
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Creates/Updates indexed document information with new name-value pairs pertaining to file uploads
+* Deletes previously indexed documents pertaining to file uploads
+
+Collaborators:
+* ApacheUtility
+* MongoRepo
+* FileManagement

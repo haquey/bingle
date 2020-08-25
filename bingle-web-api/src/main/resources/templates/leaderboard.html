@@ -1,0 +1,194 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+  <link rel="stylesheet" href="../static/css/leaderboard.css" th:href="@{/css/leaderboard.css}">
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+
+    <main role="main">
+      <div class="row">
+        <div class="col-sm-12">
+            <h3>Top Contributors</h3>
+    
+            <table id="toptentable" class="table table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Bingle Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>
+
+        </div>
+      </div>
+       
+
+        <div class="row"> 
+            
+            <div class="col-sm-12">
+                <h3>Global Site Wide Statistics</h3>
+                
+                <div class="chart-holder">
+                    <div id="piechart-uploads" style="width: 900px; height: 500px; margin: 5px;"></div>
+                    <div id="piechart-tags-used" style="width: 900px; height: 500px; margin: 5px;"></div>
+                    <div id="piechart-tags-searched" style="width: 900px; height: 500px; margin: 5px;"></div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+
+   
+
+    
+  <script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  <script type="text/javascript" src="../static/js/loader.js" th:src="@{/js/loader.js}"></script>
+  <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+  <script th:inline="javascript">
+      $(document).ready(function() {
+        $("#nav-site #nav-leaderboard").addClass("active");
+
+        google.charts.load('current', {'packages':['corechart']});
+        var user_analytics = [];
+        user_analytics.push(["File Type", "Upload Count"]);
+        var user_tags_used = [];
+        user_tags_used.push(["Tag Name", "Amount used"]);
+        var user_tags_searched = [];
+        user_tags_searched.push(["Tag Name", "Amount Searched"]);
+  
+  
+        var analytics_uploads = /*[[${uploads}]]*/ {};
+        var analytics_tags_used = /*[[${tagsUsed}]]*/ {};
+        var analytics_tags_searched = /*[[${tagsSearched}]]*/ {};
+        var ten = /*[[${topten}]]*/ {};
+
+        var topCount = 0;
+        var topTable = document.getElementById('toptentable');
+
+
+        ten.forEach(function(item) {
+          topCount++;
+          var row = topTable.insertRow();
+         
+          // row.setAttribte("bgcolor", "#e5c40b");
+         
+          // row.setAttribte("bgcolor", "#a3a3a3");
+         
+          // row.setAttribute("bgcolor", "#ad6800");
+          row.insertCell(0).outerHTML = '<th scope="row">' + topCount + '</th>';
+          var cell_2 = row.insertCell(1);
+          var cell_3 = row.insertCell(2);
+          var cell_4 = row.insertCell(3);
+          var cell_5 = row.insertCell(4);
+          cell_2.innerHTML = item.user;
+          cell_3.innerHTML = item.fullname;
+          cell_4.innerHTML = item.email;
+          cell_5.innerHTML = item.points;
+        });
+
+  
+        $.each(analytics_uploads, function(key, value){
+  
+              user_analytics.push([key, value]);
+     
+        });
+        $.each(analytics_tags_used, function(key, value){
+   
+                  user_tags_used.push([key, value]);
+   
+        });
+        $.each(analytics_tags_searched, function(key, value){
+  
+              user_tags_searched.push([key, value]);  
+  
+        });
+  
+        function sort_vals(a, b)
+        {
+            if (a[1] > b[1])
+            {
+              return 1;
+            }
+            return -1;
+        }
+        document.getElementsByTagName("tr")[2].setAttribute("bgcolor", "#e5c40b");
+        document.getElementsByTagName("tr")[3].setAttribute("bgcolor", "#a3a3a3");
+        document.getElementsByTagName("tr")[4].setAttribute("bgcolor", "#ad6800");
+        user_analytics.sort(sort_vals);
+        user_analytics = user_analytics.slice(0, 10);
+  
+        user_tags_used.sort(sort_vals);
+        user_tags_used = user_tags_used.slice(0, 10);
+  
+        user_tags_searched.sort(sort_vals);
+        user_tags_searched = user_tags_searched.slice(0, 10);
+  
+  
+        console.log(user_analytics);
+        google.charts.setOnLoadCallback(drawChart);
+      
+        
+      
+        function drawChart() {
+  
+          console.log(user_analytics);
+          console.log(user_analytics.length);
+          var data_uploads = google.visualization.arrayToDataTable(user_analytics);
+  
+          var options = {
+            title: 'File Upload Breakdown'
+          };
+  
+          var chart_uploads = new google.visualization.PieChart(document.getElementById('piechart-uploads'));
+  
+          chart_uploads.draw(data_uploads, options);
+  
+  
+  
+          var data_tags_used = google.visualization.arrayToDataTable(user_tags_used);
+  
+          var chart_tags_used = new google.visualization.PieChart(document.getElementById('piechart-tags-used'));
+  
+          chart_tags_used.draw(data_tags_used, {
+            title: 'Tags Used Breakdown'
+          });
+  
+          var data_tags_searched = google.visualization.arrayToDataTable(user_tags_searched);
+  
+          var chart_tags_searched = new google.visualization.PieChart(document.getElementById('piechart-tags-searched'));
+  
+          chart_tags_searched.draw(data_tags_searched, {
+          title: 'Tags Searched Breakdown'
+          });
+              
+        
+  
+        }
+ 
+
+      });
+    </script>
+</body>
+</html>

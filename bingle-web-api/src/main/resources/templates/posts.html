@@ -1,0 +1,300 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <!-- <link rel="stylesheet" th:href="@{/css/discussion.css}" href="../static/css/discussion.css"> -->
+  <link rel="stylesheet" th:href="@{/css/posts.css}" href="../static/css/posts.css">
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+    
+
+    <main role="main">
+
+    
+    <div class="content container" id='threads'>
+        
+        <div class="row thread" th:id="${thread.id}" th:with="id=${thread.id}">
+            <div class="col-sm-1 thread-vote">
+                <div class="vote-btn upvote" th:style=" (${session.user != null} ? ( ${session.user?.voted['__${id}__'] == 1} ? 'color:orange' : 'color:black'))">
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <label th:text="${thread.voteCount}" class="votes">57</label>
+                <div class="vote-btn downvote" th:style=" (${session.user != null} ? ( ${session.user?.voted['__${id}__'] == -1} ? 'color:blue' : 'color:black'))">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-sm-8 thread-title">
+                <h3 th:text="${thread.title}">This is a test thread.</h3>
+                <p th:text= "${thread.content}">content</p>
+                <label th:text="|By ${thread.name} at ${#dates.format(thread.createdAt, 'MMM-dd-yyyy')}|">By Someone at 12:23pm 11/11/1111</label>
+            </div>
+            
+            <div class="col-sm-2 thread-tags">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-top: 7px;">
+                            <i class="fa fa-tags" aria-hidden="true"></i>
+                            <label>Tags</label>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div th:if="${thread.tags != null}" class="col-sm-12 tag-holder">
+                            <label th:each="tag : ${thread.tags}" th:text="${tag}"></label>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-sm-1 thread-stats">
+                <div class="stat">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <label th:text="${thread.viewCount}">0</label>
+                </div>
+                <div>
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <label th:text="${thread.postCount}">0</label>
+                </div>
+            </div>
+
+
+        </div>
+        
+    </div>
+    <div class="modal fade" id="reply-post-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                   
+                        <div class="modal-header">
+                            <h4 class="modal-title">Create new post</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <div class="modal-body">
+    
+                            <h4>Reply Content</h4>
+    
+    
+                            <div id="newpost-div">
+                                <div class="input-group mb-2">
+                                    <textarea rows='10' cols='50' id="reply-input"></textarea>
+                                </div>
+                            </div>
+                                                
+    
+    
+                        </div>
+                            
+                
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="submitReply">Submit</button>
+                        </div>
+                  
+                </div>
+            </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="thread col-sm-8 reply-card">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="wmd-preview" class="column wmd-preview"></div> 
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-12">
+                            <textarea id="wmd-input" class="column wmd-input" spellcheck="false"></textarea>
+                            <!-- <textarea id="post-input"></textarea> -->
+                        </div>
+                            
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3 text-center">
+                            <button id="btn-new-post" class="btn btn-dark btn-md ">
+                                Make New Post
+                            </button>
+                        </div>
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+
+    <div class="posts"></div>
+ 
+    </main>
+
+
+
+    
+  <script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+  <script src="../static/js/discussion.js" th:src="@{/js/discussion.js}"></script>
+  <script src="../static/js/posts.js" th:src="@{/js/posts.js}"></script>
+
+  <script type="text/javascript" src="../static/js/Markdown.Converter.js" th:src="@{/js/Markdown.Converter.js}"></script>
+  <script type="text/javascript" src="../static/js/Markdown.Sanitizer.js" th:src="@{/js/Markdown.Sanitizer.js}"></script>
+  <script type="text/javascript" src="../static/js/Markdown.Editor.js" th:src="@{/js/Markdown.Editor.js}"></script>
+  <script type="text/javascript" src="../static/js/Markdown.Extra.js" th:src="@{/js/Markdown.Extra.js}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML-full"></script>
+  <script type="text/javascript" src="../static/js/mathjax-editing_writing.js" th:src="@{/js/mathjax-editing_writing.js}"></script>
+
+  <script th:inline="javascript">
+      $('#wmd-input').on('keyup paste', function() {
+        var $this_area = $(this),
+        offset = $this_area.innerHeight() - $this_area.height();
+        if ($this_area.innerHeight < this.scrollHeight) {
+            this_area.height(this.scrollHeight - offset);
+        } else {
+            $this_area.height(1);
+            $this_area.height(this.scrollHeight - offset);
+        }
+    });
+
+    var all_posts = /*[[${posts}]]*/ 'default';
+    var user = /*[[${session.user}]]*/ null;
+
+    var post = "";
+    var limiter = 0;
+    function qq(html_string, pId, offset, limiter){
+
+        for (var i = 0 ; i < all_posts.length; i++)
+        {
+            if (all_posts[i].parentPostId == pId && limiter != 7)
+            {
+                html_string +=   '<div class="content container" style="margin-left :'+ (offset+40).toString() +'px; " id="' + all_posts[i].id + '_container">' + 
+                  '<div class="row">' +
+                    '<div class="col-sm-6 post" id="' + all_posts[i].id + '">' +
+                        
+                        '<div class="row thread">' + 
+
+                        '<div class="col-sm-1 post-vote">';
+                            if (user != null) {
+                                if (user.voted[all_posts[i].id] == "1")
+                                {
+                                    html_string += '<div class="vote-btn post-upvote" style="color:orange;">';
+                                }
+                                else {
+                                    html_string += '<div class="vote-btn post-upvote">';
+
+                                }
+                            }
+                            else {
+                                html_string += '<div class="vote-btn post-upvote">';
+
+                            }
+                            html_string +=   '<i class="fa fa-angle-up" aria-hidden="true"></i>' +
+                            '</div>' +
+                            '<label th:text="${' + all_posts[i].voteCount +'}" class="votes">' + all_posts[i].voteCount +'</label>';
+                            if (user != null) {
+                                if (user.voted[all_posts[i].id] == "-1")
+                                {
+                                    html_string += '<div class="vote-btn post-downvote" style="color:blue;">';
+
+                                }
+                                else {
+                                    html_string += '<div class="vote-btn post-downvote">';
+
+                                }
+                            }
+                            else {
+                                html_string += '<div class="vote-btn post-downvote">';
+
+                            }
+                            html_string += '<i class="fa fa-angle-down" aria-hidden="true"></i>' +
+                            '</div>' +
+                        '</div>' +
+                        
+                        `<div class="col-sm-2 post-user">`;
+
+                            if (all_posts[i].avatar) {
+                                html_string += `<img src="` + all_posts[i].avatar +`" style="height:60px"/>`;
+                            } else {
+                                html_string +=  `<i class="fa fa-user-circle" aria-hidden="true"></i>`;
+                            }
+
+                            html_string += `<label class="post-username">` + all_posts[i].username + `</label>`;
+                            
+                            if (all_posts[i].admin) {
+                                html_string += `<label class="post-bp">Instructor</label>`;
+                            } else {
+                                html_string += `<label class="post-bp">Student</label>`;
+                            }
+
+                        html_string += `</div>` +
+
+                        '<div class="col-sm-7 post-content">' +
+                            '<p th:text="${' + all_posts[i].content +'}">' + all_posts[i].content + '</p>' +
+                            '<label>Posted at ' + all_posts[i].createdAt + '</label>' +
+                        '</div>' +
+
+                        '<div class="col-sm-2 text-center">' +
+                            '<button class="btn btn-dark btn-sm btn-reply" data-toggle="modal" data-target="#reply-post-modal">' +
+                               'Reply' +
+                            '</button>' +
+                        '</div>' +
+
+                        '</div>' + 
+
+                    '</div>' +
+                    '</div>'+
+                        
+                '</div>';
+                html_string = qq(html_string, all_posts[i].id, (offset+40), (limiter+1));
+            }
+        }   
+        return html_string;
+
+    }
+
+      
+    post = qq(post, "-1", 0, 0);
+    $('.posts').append(
+        post
+    );
+
+    MathJax.Hub.Config(
+        {"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic: true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+         tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+         TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+         messageStyle: "none", skipStartupTypeset: true });
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]); 
+
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        var userDNE = /*[[${session.user == null}]]*/ null;
+        if (userDNE) {
+            sessionStorage.setItem("logged in", false);
+        }
+        else {
+            sessionStorage.setItem("logged in", true);
+
+        }
+    });
+    /*]]>*/
+</script>
+<script type="text/javascript">
+   
+    </script>
+
+</body>
+</html>

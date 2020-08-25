@@ -1,0 +1,13 @@
+Class name: AccountController
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Routes urls/paths to serve views based on account/profile info
+* Creates, updates and deletes "Account" models
+
+Collaborators:
+* RestController (SpringMVC library)
+* Account

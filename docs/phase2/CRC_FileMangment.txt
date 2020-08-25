@@ -1,0 +1,15 @@
+Class name: FileManagement
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Stores uploaded files
+* Manages and tags all uploaded files
+* Fetches specific uploaded files when requested.
+
+Collaborators:
+* Tag
+* Account
+* MongoRepo

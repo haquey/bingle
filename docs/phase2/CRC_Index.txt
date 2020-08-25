@@ -1,0 +1,15 @@
+Class name: Index
+
+Parent class (if any): None
+
+Index Subclasses (if any): IndexUploads, IndexListings, IndexPosts, IndexThreads
+
+Responsibilities:
+* Creates/Updates indexed document (as defined in Apache Lucene) information with new name-value pairs
+* Deletes previously indexed documents
+
+Collaborators:
+* ApacheUtility
+* Account
+* MongoRepo
+* Tag

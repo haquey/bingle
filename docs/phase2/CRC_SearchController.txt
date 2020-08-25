@@ -1,0 +1,13 @@
+Class name: SearchController
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Routes urls/paths pertaining to file, listing and marketplace search queries
+* Serves Views based on routes given
+
+Collaborators:
+* SearchIndex
+* RestController (SpringMVC library)

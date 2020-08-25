@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Login</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="../static/css/login.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <!--<a class="navbar-brand" href="/">Navbar</a>-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            	<a class="nav-link" href="forum">Forum</a>
+            </li>
+            </ul>
+            <ul class = "navbar-nav nav-right">
+            <li class="nav-item active">
+            	<a class="nav-link" href="login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register">Register</a>
+            </li>
+            </ul>
+            
+        </div>
+    </nav>
+    
+    <main role="main" class="container">
+	    <div class="content">
+		    <img class = "logo" th:src="@{/assets/bingle.png}" alt="Bingle Logo">
+		    <div class="box">
+                <form method="post" action="/login" enctype="application/json">
+                    <input name = "username" class="form-control mr-sm-2 username" type="text" placeholder="Username" aria-label="Username">
+		    	    <input name = "password" class="form-control mr-sm-2 password" type="text" placeholder="Password" aria-label="Password">
+		            <button class="btn btn-outline-success my-2 my-sm-0 login-btn" type="submit">Login</button>
+                </form>
+		    </div>
+	    </div>
+	</main>
+	<script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  	<script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

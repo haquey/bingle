@@ -1,0 +1,12 @@
+Class name: Tag
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Object containing information regarding Tag instances
+* Creates, updates and deletes Tags from the database
+
+Collaborators:
+* MongoRepo

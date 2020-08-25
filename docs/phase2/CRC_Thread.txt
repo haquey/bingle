@@ -1,0 +1,14 @@
+Class name: Thread
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Object containing information regarding Thread instances
+* Creates, updates and deletes Threads from the database
+
+Collaborators:
+* Tag
+* Account
+* MongoRepo

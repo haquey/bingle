@@ -1,0 +1,32 @@
+main {
+    margin-top: 75px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 35px;
+}
+
+h3 {
+    margin-left: 5px;
+}
+
+#toptentable {
+    border-radius: 2px 2px 5px 5px;
+    color: white;
+    background-color: #363636;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.chart-holder {
+    border: 2px solid #363636;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+.number-1-contributor {
+    background-color: #e5c40b;
+}
+.number-2-contributor {
+    background-color: #a3a3a3;
+}
+.number-3-contributor {
+    background-color: #ad6800;
+}

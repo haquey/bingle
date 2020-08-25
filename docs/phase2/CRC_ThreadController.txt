@@ -1,0 +1,13 @@
+Class name: ThreadController
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Routes urls/paths to serve views based on the forum portion of the site
+* Creates, updates and deletes "Thread" models
+
+Collaborators:
+* RestController (SpringMVC library)
+* Thread

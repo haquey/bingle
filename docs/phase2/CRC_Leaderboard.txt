@@ -1,0 +1,13 @@
+Class name: Leaderboard
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+*Find users with highest bingle points (gained from uploading documents and post).
+*Regularly update the leaderboard with top users.
+
+Collaborators:
+* Account
+* MongoRepo

@@ -1,0 +1,15 @@
+Class name: AppInit
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Initializes the servlet for the web application to host server files, html, css, etc.
+* Initializes any services that must be booted up such as any cron jobs
+* Initializes connection to database (MongoDB)
+
+Collaborators:
+* SpringBootApplication (from the SpringBoot Framework)
+* ApacheUtility
+* MongoRepo

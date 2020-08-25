@@ -1,0 +1,12 @@
+Class name: SearchPosts
+
+Parent class (if any): SearchIndex
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Takes keywords provided by the user and queries that database pertaining to posts
+
+Collaborators:
+* IndexPosts
+* MongoRepo

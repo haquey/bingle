@@ -1,0 +1,589 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/marketplace.css}" href="../static/css/marketplace.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" href="../static/css/croppie.css" th:href="@{/css/croppie.css}"/>
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+    
+    <div class="row">
+	        <div class="col-sm-12">
+                <h1 class="title-header">Marketplace</h1>
+            </div>
+    </div>
+    
+    <div id="view-listing" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="show-listing-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <div class="img-holder img-thumbnail">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-sm-7">
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label><i class="fas fa-eye"></i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-viewcount">...</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="tag-label col-sm-3 text-right">
+                                                    <i class="fa fa-tags" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="col listing-data listing-tag-holder">
+                                                </div>
+                                            </div>
+
+                                        <div class="row">
+                                                <div class="col-sm-3 text-right">
+                                                    <label>Category:</label>
+                                                </div>
+                                                <div class="col listing-data">
+                                                    <label id="show-listing-category">...</label>
+                                                </div>
+                                            </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Price:</label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-price">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Posted By:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-user">...</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>E-mail:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-email">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Phone No:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-phone">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                                <div class="col-sm-3 text-right">
+                                                    <label>Description:</i></label>
+                                                </div>
+                                                <div class="col listing-data">
+                                                    <label id="show-listing-desc">...</label>
+                                                </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div id="view-listing-btns" class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+            </div>
+          </div>
+
+    <div class="row">
+	        <div class="col-sm-10">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-prepend">Search Marketplace</span>
+                        </div>
+                        <input id="market-search" type="search" placeholder="Enter a Keyword..." class="form-control" aria-label="Large">
+                        <!-- <i id="search-cancel" class="fa fa-times-circle"></i> -->
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary market-search-btn" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+            </div>
+        	<div class="col-sm-2">
+            	<div class="make-listing" th:if="${session.user} != null">
+            		<button id="make-listing-btn" class="btn btn-lg pull-right" data-toggle="modal" data-target="#listing-modal">
+                        Make Listing
+                    </button>
+            	</div>
+            </div>
+    </div>
+
+    <div class="modal fade" id="listing-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="add-listing">
+                
+                    <div class="modal-header">
+                        <h4 class="modal-title">Make Listing</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                    
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                                </div>
+                                <select class="custom-select" id="category-inpt">
+                                  <option selected>Select a Category...</option>
+                                  <option value="textbook">Textbooks</option>
+                                  <option value="ebook">eBooks</option>
+                                  <option value="coursenote">Course Notes</option>
+                                  <option value="coursematerial">Past Course Material</option>
+                                  <option value="utencil">Utencil</option>
+                                  <option value="electronic">Electronics</option>
+                                  <option value="clothing">Clothing Apparel</option>
+                                  <option value="misc">Miscellaneous</option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Title</span>
+                                    </div>
+                                    <input required type="text" class="form-control" id="title-inpt" placeholder="Name your posting...">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input required id="price-inpt" type="number" min="0" step="1" class="form-control" placeholder="Price...">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Email</span>
+                                    </div>
+                                    <input required type="email" class="form-control" id="mail-inpt" placeholder="Where others can send inquiries...">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Phone No.</span>
+                                    </div>
+                                    <input type="text" pattern="^\d{3}-\d{3}-\d{4}$" class="form-control" id="phone-inpt" placeholder="Format: XXX-XXX-XXXX">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Listing<br>Description</span>
+                                </div>
+                                <textarea id="listing-desc" class="form-control" placeholder="Describe what you're selling here..." aria-label="Description"></textarea>
+                            </div>
+
+                            <div class="input-group mb-2" style="margin-top:25px;">
+                                <div class="placeholder-img-upload text-center">
+                                    <h3>Please Upload an Image</h3>
+                                </div>
+                                <div id="crop-listing" style="display:none;">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group mb-2" style="margin-top:50px;">
+                                <input type="file" name="uploadImgListing" class="form-control-file" id="upload-img" placeholder="Upload Image" />
+                            </div>
+                            
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Tags</span>
+                                </div>
+                                <input type="text" class="form-control" id="tags-inpt" placeholder="(Optional) Tags (Seperate each by a ';' )">
+                            </div>
+
+                    
+                    </div>
+                    
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="submitInfo">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <main role="main" class="container">
+
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="categories list-group" role="tablist">
+                    <a class="list-group-item list-group-item-action active" href="#category-all" data-toggle="list" role="tab">All</a>
+                    <a class="list-group-item list-group-item-action" href="#category-textbook" data-filter="textbook" data-toggle="list" role="tab">Textbooks</a>
+                    <a class="list-group-item list-group-item-action" href="#category-ebook" data-filter="ebook" data-toggle="list" role="tab">eBooks</a>
+                    <a class="list-group-item list-group-item-action" href="#category-coursenote" data-filter="coursenote" data-toggle="list" role="tab">Course Notes</a>
+                    <a class="list-group-item list-group-item-action" href="#category-coursematerial" data-filter="coursematerial" data-toggle="list" role="tab">Past Course Material</a>
+                    <a class="list-group-item list-group-item-action" href="#category-utencil" data-filter="utencil" data-toggle="list" role="tab">Utencils</a>
+                    <a class="list-group-item list-group-item-action" href="#category-electronic" data-filter="electronic" data-toggle="list" role="tab">Electronics</a>
+                    <a class="list-group-item list-group-item-action" href="#category-clothing" data-filter="clothing" data-toggle="list" role="tab">Clothing Apparel</a>
+                    <a class="list-group-item list-group-item-action" href="#category-misc" data-filter="misc" data-toggle="list" role="tab">Miscellaneous</a>
+                </div>
+            </div> 
+            <div class="col-sm-9">
+                <div class="listings">
+                    <div class="item textbooks" th:each="listing : ${listings}" th:data-id="${listing.id}" th:class="${'item ' + listing.category}">
+                        <h3 th:text="${listing.title}">Book for Sale</h3>
+                        <img th:if="${listing.image}" th:src="${listing.image}" />
+                        <i th:unless="${listing.image}" class="fas fa-book"></i>
+                        <label th:text="${'Price: $' + listing.price}">Price: $11.11</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+            
+    </div>
+
+    </main>
+  <script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+  <script src="../static/js/croppie.js" th:src="@{/js/croppie.js}"></script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function() {
+        var all_listing_items = $('.item');
+        var curr_user = /*[[${curr_user}]]*/ null;
+        var is_admin = /*[[${is_admin}]]*/ null;
+
+        $("#market-search").keyup(function(event) {
+            if (event.keyCode === 13) {
+                $(".market-search-btn").click();
+            }
+        });
+
+        $('.item').on('click', function(e) {
+            viewListing($(this).attr('data-id'));
+        });
+
+        $('#market-search').on('input', function(e) {
+            if('' == this.value) {
+                if ($('.item').length < all_listing_items.length) {
+                    $('.listings').html('');
+                    $('.listings').append(all_listing_items);
+                    $('.item').on('click', function() {
+                        viewListing($(this).attr('data-id'));
+                    });
+                }
+            }
+        });
+
+        $("#nav-site #nav-marketplace").addClass("active");
+        
+        var search_url = /*[[@{/marketplace/search/}]]*/ '/marketplace/search/';
+        var delete_url = /*[[@{/marketplace/delete/}]]*/ '/marketplace/delete/';
+
+        $('.market-search-btn').on('click', function() {
+            var search_query = search_url + $('#market-search').val();
+            $.ajax({
+                type: "GET",
+                url: search_query,
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    if (data == null) {
+                        console.log(all_listing_items);
+                        $('.listings').html('');
+                        $('.listings').append(all_listing_items);
+                        $('.item').on('click', function() {
+                            viewListing($(this).attr('data-id'));
+                        });
+                    } else {
+                        $('.listings').html('');
+                        console.log(all_listing_items);
+                        // $('.item').fadeOut(0);
+                        for (var i=0; i < data.length; i++) {
+                            var elmt = $(document.createElement('div'));
+                            elmt.addClass('item');
+                            elmt.addClass(data[i].category);
+                            elmt.attr('data-id', data[i].id);
+                            if (data[i].image != null) {
+                                elmt.html(`<h3>` + data[i].title + `</h3>
+                                            <img src="` + data[i].image + `" />
+                                            <label>Price: $` + data[i].price + `</label>`);
+                            } else {
+                                elmt.html(`<h3>` + data[i].title + `</h3>
+                                            <i class="fas fa-book"></i>
+                                            <label>Price: $` + data[i].price + `</label>`);
+                            }
+                            
+                            console.log(elmt);
+                            elmt.on('click', function() {
+                                viewListing($(this).attr('data-id'));
+                            });
+
+                            $('.listings').append(elmt);
+                        }
+
+                    }
+                    
+                    
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+
+        var view_listing_url = /*[[@{/marketplace/}]]*/ '/marketplace/';
+
+        function viewListing(data_id) {
+            var get_listing = view_listing_url + data_id;
+            console.log(get_listing);
+            $.ajax({
+                type: "POST",
+                url: get_listing,
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#show-listing-title').html(data.title);
+                    $('#show-listing-viewcount').html(data.viewCount);
+                    console.log($('.categories a[data-filter="' + data.category + '"]').html());
+                    $('#show-listing-category').html($('.categories a[data-filter="' + data.category + '"]').html());
+                    $('#show-listing-user').html(data.username);
+                    $('#show-listing-desc').html(data.description);
+                    $('#show-listing-price').html('$' + data.price);
+                    $('#show-listing-phone').html(data.phoneNo);
+                    $('#show-listing-email').html(data.email);
+                    $('.listing-tag-holder').html('');
+                    if (data.tags != null) {
+                        for (var i=0; i < data.tags.length; i++) {
+                            $('.listing-tag-holder').append('<label>' + data.tags[i] + '</label>');
+                        }
+                    }
+                    
+                    if (data.image != null) {
+                        $('.img-holder').html('<img src="' + data.image + '" />');
+                    } else {
+                        $('.img-holder').html('<i class="fas fa-book"></i>');
+                    }
+                    
+
+                    if (curr_user === data.username || is_admin){
+                        //Create the delete button here
+                        var delete_button = $(document.createElement('button'));
+                        delete_button.addClass('btn');
+                        delete_button.addClass('btn-danger');
+                        delete_button.attr('id', 'delete-listing-button');
+                        delete_button.attr('type', 'button');
+                        delete_button.html('Delete');
+                        $('#view-listing').on('hidden.bs.modal', function () {
+                            delete_button.remove();
+                        })
+                        delete_button.on('click', function(){
+                            $.ajax({
+                                type: "DELETE",
+                                url: delete_url + data.id,
+                                success: function () {
+                                    console.log(data.id);
+                                    all_listing_items.remove('.item[data-id="' + data.id + '"]');
+                                    all_listing_items = all_listing_items.not('.item[data-id="' + data.id + '"]');
+                                    $('#view-listing').modal('hide');
+                                },
+                                error: function (data) {
+                                    console.log('An error occurred.');
+                                },
+                            });
+                        });
+
+                        $('#view-listing-btns').prepend(delete_button);
+                    }
+                    
+                    $('#view-listing').modal('show');
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+
+        }
+
+        
+        
+
+        var listing_url = /*[[@{/marketplace/create}]]*/ '/marketplace/create';
+
+        
+
+        $("#add-listing").submit(function (e) {
+            e.preventDefault();
+
+            img_crop.croppie('result', {
+                type: 'base64'
+            }).then(function(file){
+                var imgFile = null;
+                if (file != 'data:,') {
+                    imgFile = file;
+                }
+                console.log(file);
+                console.log(imgFile);
+                var listing_data = {    title : $("#title-inpt").val() , 
+                                    price : $("#price-inpt").val(),
+                                    description: $("#listing-desc").val(),
+                                    email: $("#mail-inpt").val(),
+                                    viewCount: 0,
+                                    phoneNo: $("#phone-inpt").val(),
+                                    category: $("#category-inpt").val(),
+                                    tags:  $("#tags-inpt").val().split(";"),
+                                    image: imgFile };
+
+                console.log(listing_data);
+                $.ajax({
+                    type: "PUT",
+                    url: listing_url,
+                    data: JSON.stringify(listing_data),
+                    contentType: "application/json",
+                    success: function (data) {
+                        $("#listing-modal").modal("hide");
+                        console.log(data);
+                        var elmt = $(document.createElement('div'));
+                        elmt.addClass('item');
+                        elmt.addClass(data.category);
+                        elmt.attr('data-id', data.id);
+                        if (data.image != null) {
+                            elmt.html(`<h3>` + data.title + `</h3>
+                                        <img src="` + data.image + `" />
+                                        <label>Price: $` + data.price + `</label>`);
+                        } else {
+                            elmt.html(`<h3>` + data.title + `</h3>
+                                        <i class="fas fa-book"></i>
+                                        <label>Price: $` + data.price + `</label>`);
+                        }
+                        
+                        console.log(elmt);
+                        elmt.on('click', function() {
+                            viewListing($(this).attr('data-id'));
+                        });
+                        all_listing_items.push(elmt[0]);
+                        console.log(all_listing_items);
+                        $('.listings').append(elmt);
+                        $('#add-listing').trigger("reset");
+
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+                });
+            
+            
+            });
+            
+        });
+
+        $('.categories .list-group-item').on('click', function() {
+           var filter = $(this).attr('href').replace('#category-','');
+           console.log(filter);
+           if (filter === 'all') {
+               $('.item').fadeIn(100);
+           } else {
+               $('.item').fadeOut(0);
+               $('.item.' + filter).fadeIn(100);
+           }
+        });
+        
+        
+        // upload crop
+        var img_crop = $('#crop-listing').croppie({
+            viewport: {
+                width: 230,
+                height: 138
+            }
+        });
+
+        $('#upload-img').on('change', function(input) {
+
+            if (input.target.files && input.target.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    img_crop.croppie('bind', {
+                        url: e.target.result
+                    });
+                }
+
+                reader.readAsDataURL(input.target.files[0]);
+                $('.placeholder-img-upload').hide();
+                $('#crop-listing').show();
+            }
+        });
+
+
+        // function readFile(input) {
+        //     if (input.files && input.files[0]) {
+        //         var reader = new FileReader();
+
+        //         reader.onload = function (e) {
+        //         $('#main-cropper').croppie('bind', {
+        //             url: e.target.result
+        //         });
+        //         $('.actionDone').toggle();
+        //         $('.actionUpload').toggle();
+        //         }
+
+        //         reader.readAsDataURL(input.files[0]);
+        //     }
+        // }
+    
+    });
+
+        
+
+
+    /*]]>*/
+    </script>
+
+  
+</body>
+</html>

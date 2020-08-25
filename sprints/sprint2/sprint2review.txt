@@ -1,0 +1,7 @@
+Unfortunately, our team did not manage to complete all of the tasks assigned for this sprint.
+This is because the tasks we had assigned required much more time than anticipated. There were
+also additional subtasks that were added to certain user stories i.e TEAM6-14 during the sprint
+as there were additional duties that we did not account for. Furthermore, due to the scope of our project
+it is only natural that user stories take so much work/can be divided into several components until
+a feature is implemented from a user perspective. With this in mind, we will be more diligent in the
+allocation and breakdown of user story tasks in the coming sprints.

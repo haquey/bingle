@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Bingle</title>
+    <meta name="description" content="The one-stop academic search engine platform.">
+    <meta name="author" content="TEAM6">
+
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="../static/css/home.css">
+    <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+    <link rel="stylesheet" th:href="@{/css/crawler.css}" href="../static/css/crawler.css">
+    <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+
+<body>
+	<div class="homepage">
+	    <div th:replace="fragments/header :: header">
+	    </div>
+
+
+<main role="main" class="container">
+    <div class="content">
+        <h1>Bingle</h1>
+        <form id="crawlForm">
+            <input type="text" name="url" class="form-control" id="domain" placeholder="Url"/>
+        <div class="input-group" style="margin-top:10px;">
+            <input type="text" name="depth" class="form-control" id="depth" placeholder="Depth"/>
+            <input type="text" name="msx_page" class="form-control" id="page" placeholder="Maximum pages"/>
+          <button id="crawl-btn" class="btn btn-dark" type="submit">Crawl</button>
+        </div>
+        </form>
+        <div class="row">
+                <div class="col">
+                </div>
+                <div class="col-sm-2 radio-holder" style="border-radius: 5px 0 0 5px;">
+                        <input type="radio" name="option" value="Files" checked>
+                        <label>
+                                Files
+                        </label>
+                </div>
+                              
+                <div class="col-sm-2 radio-holder" style="border-radius: 0px 5px 5px 0px;">
+                        <input type="radio" name="option" value="Images">
+                        <label>
+                                Images
+                        </label>
+                </div>
+
+                              
+                
+                <div class="col"></div>
+            </div>
+        <p class="text-black-50" id="load" style="display:none;">Loading</p>
+        <p class="text-black-50" id="finish" style="display:none;">Finished Crawling</p>
+    </div>
+</main>
+</div>
+
+<script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/crawl.js" th:src="@{/js/crawl.js}"></script>
+
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function() {
+    $("#nav-site #nav-crawler").addClass("active");
+});
+/*]]>*/
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+Class name: IndexThreads
+
+Parent class (if any): Index
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Creates/Updates indexed document information with new name-value pairs pertaining to threads
+* Deletes previously indexed documents pertaining to threads
+
+Collaborators:
+* MongoRepo
+* ApacheUtility
+* Thread

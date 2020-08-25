@@ -1,0 +1,621 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bingle</title>
+  <meta name="description" content="The one-stop academic search engine platform.">
+  <meta name="author" content="TEAM6">
+
+  <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/discussion.css}" href="../static/css/posts.css">
+  <link rel="stylesheet" th:href="@{/css/posts.css}" href="../static/css/discussion.css">
+  <link rel="stylesheet" th:href="@{/css/profile.css}" href="../static/css/profile.css">
+  <link rel="stylesheet" href="../static/css/fontawesome-all.css" th:href="@{/css/fontawesome-all.css}">
+  <link rel="stylesheet" href="../static/css/croppie.css" th:href="@{/css/croppie.css}"/>
+  <link rel="stylesheet" th:href="@{/css/nav.css}" href="../static/css/nav.css">
+  <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div id="view-listing" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="show-listing-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <div class="img-holder img-thumbnail">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-sm-7">
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label><i class="fas fa-eye"></i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-viewcount">...</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-sm-3 text-right">
+                                                    <label>Category:</label>
+                                                </div>
+                                                <div class="col listing-data">
+                                                    <label id="show-listing-category">...</label>
+                                                </div>
+                                            </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Price:</label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-price">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Posted By:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-user">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>Phone No:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-phone">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-sm-3 text-right">
+                                                <label>E-mail:</i></label>
+                                            </div>
+                                            <div class="col listing-data">
+                                                <label id="show-listing-email">...</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                                <div class="col-sm-3 text-right">
+                                                    <label>Description:</i></label>
+                                                </div>
+                                                <div class="col listing-data">
+                                                    <label id="show-listing-desc">...</label>
+                                                </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div id="view-listing-btns" class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+            </div>
+          </div>
+
+    
+
+    <main role="main">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="categories list-group" role="tablist">
+                        <a class="list-group-item list-group-item-action active" href="#profile-general" data-toggle="list" role="tab">Profile Information</a>
+                        <a class="list-group-item list-group-item-action" href="#profile-uploads" data-toggle="list" role="tab">Uploads</a>
+                        <a class="list-group-item list-group-item-action" href="#profile-posts" data-toggle="list" role="tab">Threads</a>
+                        <a class="list-group-item list-group-item-action" href="#profile-comments" data-toggle="list" role="tab">Posts</a>
+                        <a class="list-group-item list-group-item-action" href="#profile-listings" data-toggle="list" role="tab">Listings</a>
+                    </div>
+                </div>
+                <div class="col-8">
+                        <div class="tab-content" id="nav-tabContent">
+                          <div class="tab-pane fade show active" id="profile-general" role="tabpanel" aria-labelledby="list-general-list">
+                            <div class="profile-info">
+                                <div class="row" style="margin-left:50px;">
+                                    <div class="col-sm-4">
+                                        <div class="avatar-placeholder text-center">
+                                            <i th:if="${session.user.avatar == null}" class="fas fa-user-circle"></i>
+                                            <img th:unless="${session.user.avatar == null}" th:src="${session.user.avatar}">
+                                        </div>
+
+                                        <div id="avatar-crop" style="display:none;">
+                                        </div>
+
+                                        <div class="input-group mb-2 upload-btn-holder">
+                                            <button id="choose-file-btn" class="btn btn-primary">Add Image</button>
+                                            <button id="upload-file-btn" class="btn btn-primary" disabled>Upload</button>
+                                            <input type="file" name="uploadAvatar" class="form-control-file" id="upload-avatar" placeholder="Upload Avatar" style="display:none;" />
+                                        </div>
+                                    </div>
+                                    <div class="col info-holder">
+                                        <h3 th:text="|${account.firstName} ${account.lastName}|">John Doe</h3>
+                                        <p th:text="${'Username: ' + account.username}">JD</p>
+                                        <p th:text="${'Phone Number: ' + account.phoneNum}">Phone Num: 123-123-1234</p>
+                                        <p th:text="${'Email: ' + account.email}" >Email: JD@.com</p>
+                                        <p th:text="${'Bingle points: ' + account.binglePoints}" th:if="${account.student}"></p>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="piechart-uploads" style="height: 500px;"></div>
+                                        <div id="piechart-tags-used" style="height: 500px;"></div>
+                                        <div id="piechart-tags-searched" style="height: 500px;"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="profile-uploads" role="tabpanel" aria-labelledby="list-profile-list">
+                            <div class="content container" id='results'>
+
+
+
+                            </div>
+                          </div>
+                          
+                          <div class="tab-pane fade" id="profile-posts" role="tabpanel" aria-labelledby="list-messages-list">
+                            <div class="content container" id='threads'>
+
+                                    <div class="row thread" th:each="thread : ${threads}" th:id="${thread.id}">
+                                            <div class="col-sm-1 thread-vote">
+                                                <label style="font-size: 11px;color: #808084;" class="votes">Points</label>
+                                                <label style="font-size: 28px;color: #808084;" th:text="${thread.voteCount}" class="votes">57</label>
+                                            </div>
+                                            <div class="col-sm-5 thread-title">
+                                                <!-- <h3 th:text="${thread.title}">This is a test thread.</h3> -->
+                                                <a th:href="@{'/discussion/posts/' + ${thread.id}}" th:text="${thread.title}">This is a test thread.</a>
+                                                <label th:text="|By ${thread.name} at ${thread.createdAt}|">By Someone at 12:23pm 11/11/1111</label>
+                                            </div>
+                                            
+                                            <div class="col-sm-4 thread-tags">
+                                                <div class="row">
+                                                    <div class="col-sm-12" style="margin-top: 7px;">
+                                                        <i class="fa fa-tags" aria-hidden="true"></i>
+                                                        <label>Tags</label>
+                                                    </div>
+                                                </div>
+                                
+                                                <div class="row">
+                                                    <div th:if="${thread.tags != null}" class="col-sm-12 tag-holder">
+                                                        <label th:each="tag : ${thread.tags}" th:text="${tag}"></label>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                
+                                            <div class="col-sm-1 thread-stats">
+                                                <div class="stat">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    <label th:text="${thread.viewCount}">0</label>
+                                                </div>
+                                                <div>
+                                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                                    <label th:text="${thread.postCount}">0</label>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="col-sm-1 thread-delete">
+                                                <div class="trash-btn">
+                                                    <button class="btn btn-dark delete-thread-btn" th:data-id="${thread.id}">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                
+                                
+                                        </div>
+                                
+                            </div>
+                          </div>
+
+
+                          <div class="tab-pane fade" id="profile-comments" role="tabpanel" aria-labelledby="list-settings-list">
+                                <div class="content container" id='posts'>
+
+
+                                        <div class="row" th:each="post : ${posts}"> 
+                                            <div class="col-sm-8 post" th:id="${post.id}">
+                                               <div class="row thread">
+                                                    <div class="col-sm-2 post-vote">
+                                                        <label style="font-size: 11px;color: #808084;" class="votes">Points</label>
+                                                        <label style="font-size: 28px;color: #808084;" th:text="${post.voteCount}" class="votes"></label>
+                                                    </div>
+                                                    <div class="col-sm-10 post-content">
+                                                        <p th:text="${post.content}"></p>
+                                                        <label th:text="|By ${post.name} at ${post.createdAt}|"></label>
+                                                    </div>
+                            
+                                            
+                            
+                                                    </div>
+                            
+                                                </div>
+                                            </div>
+
+
+                                    <!-- OLD -->
+                                
+                                    <!-- <div class="row post" th:each="post : ${posts}" th:id="${post.id}">
+                                        <div class="col-sm-1 post-vote">
+                                            <div class="vote-btn bg-dark post-upvote">
+                                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                            </div>
+                                            <label th:text="${post.voteCount}" class="votes">0</label>
+                                            <div class="vote-btn bg-dark post-downvote">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 post-content">
+                                            <p th:text="${post.content}">text</p>
+                                            <label th:text="|By ${post.name} at ${post.createdAt}|">By Someone at 12:23pm 11/11/1111</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button class="btn btn-dark btn-sm btn-reply" data-toggle="modal" data-target="#reply-post-modal">
+                                                Reply
+                                            </button>
+                                        </div>
+                                    </div>         -->
+                                </div>
+
+
+
+                          </div>
+
+
+                          <div class="tab-pane fade" id="profile-listings" role="tabpanel" aria-labelledby="list-settings-list">
+                            <div class="listings">
+                                    <div class="item textbooks" th:each="listing : ${listings}" th:data-id="${listing.id}" th:class="${'item ' + listing.category}">
+                                        <h3 th:text="${listing.title}">Book for Sale</h3>
+                                        <img th:if="${listing.image}" th:src="${listing.image}" />
+                                        <i th:unless="${listing.image}" class="fas fa-book"></i>
+                                        <label th:text="${'Price: $' + listing.price}">Price: $11.11</label>
+                                    </div>
+                            </div>
+
+
+
+                          </div>
+
+                        </div>
+                </div>
+                <!-- <div class="col-sm-9">
+                    <div class="porfile-info" id="category-all">
+                        <div class="item">
+                            <h3 th:text="|${account.firstName} ${account.lastName}|">John Doe</h3>
+                            <p th:text="${'Username: ' + account.username}">JD</p>
+                            <p >Phone Num: 123-123-1234</p>
+                            <p >Email: JD@.com</p>
+                            <p >JD</p>
+                            <div id="piechart" style="width: 900px; height: 500px;"></div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+                
+                
+        </div>
+
+        
+      
+    </main>
+
+   
+
+    
+  <script src="../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+  <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  <script type="text/javascript" src="../static/js/loader.js" th:src="@{/js/loader.js}"></script>
+  <script src="../static/js/croppie.js" th:src="@{/js/croppie.js}"></script>
+  <script th:inline="javascript">
+    $(document).ready(function() {
+      google.charts.load('current', {'packages':['corechart']});
+      var user_analytics = [];
+      user_analytics.push(["File Type", "Upload Count"]);
+      var user_tags_used = [];
+      user_tags_used.push(["Tag Name", "Amount used"]);
+      var user_tags_searched = [];
+      user_tags_searched.push(["Tag Name", "Amount Searched"]);
+
+
+      var analytics_uploads = /*[[${account.uploads}]]*/ {};
+      var analytics_tags_used = /*[[${account.tags}]]*/ {};
+      var analytics_tags_searched = /*[[${account.tagsSearched}]]*/ {};
+
+      var uploaded = /*[[${uploads}]]*/ {};
+      if (uploaded != null)
+      {
+        uploaded.forEach(insert_result);
+      }
+      console.log(/*[[${account}]]*/ {})
+      console.log(/*[[${session.user.id}]]*/ {})
+      console.log(/*[[${threads}]]*/ {})
+
+      $.each(analytics_uploads, function(key, value){
+
+            user_analytics.push([key, value]);
+   
+      });
+      $.each(analytics_tags_used, function(key, value){
+ 
+                user_tags_used.push([key, value]);
+ 
+      });
+      $.each(analytics_tags_searched, function(key, value){
+
+            user_tags_searched.push([key, value]);  
+
+      });
+
+      function sort_vals(a, b)
+      {
+          if (a[1] > b[1])
+          {
+            return 1;
+          }
+          return -1;
+      }
+
+      user_analytics.sort(sort_vals);
+      user_analytics = user_analytics.slice(0, 10);
+
+      user_tags_used.sort(sort_vals);
+      user_tags_used = user_tags_used.slice(0, 10);
+
+      user_tags_searched.sort(sort_vals);
+      user_tags_searched = user_tags_searched.slice(0, 10);
+
+
+      console.log(user_analytics);
+      google.charts.setOnLoadCallback(drawChart);
+    
+      
+    
+      function drawChart() {
+
+        console.log(user_analytics);
+        console.log(user_analytics.length);
+        var data_uploads = google.visualization.arrayToDataTable(user_analytics);
+
+        var options = {
+          title: 'File Upload Breakdown'
+        };
+
+        var chart_uploads = new google.visualization.PieChart(document.getElementById('piechart-uploads'));
+
+        chart_uploads.draw(data_uploads, options);
+
+
+
+        var data_tags_used = google.visualization.arrayToDataTable(user_tags_used);
+
+        var chart_tags_used = new google.visualization.PieChart(document.getElementById('piechart-tags-used'));
+
+        chart_tags_used.draw(data_tags_used, {
+          title: 'Tags Used Breakdown'
+        });
+
+        var data_tags_searched = google.visualization.arrayToDataTable(user_tags_searched);
+
+        var chart_tags_searched = new google.visualization.PieChart(document.getElementById('piechart-tags-searched'));
+
+        chart_tags_searched.draw(data_tags_searched, {
+        title: 'Tags Searched Breakdown'
+        });
+            
+      
+
+      }
+
+
+      // Upload avatar
+
+        var img_crop = $('#avatar-crop').croppie({
+            viewport: {
+                width: 100,
+                height: 100,
+                type: 'circle'
+            }
+        });
+
+        $('#choose-file-btn').on('click', function() {
+            $('#upload-avatar').trigger('click');
+            console.log('click!');
+        });
+
+        $('#upload-avatar').on('change', function(input) {
+            $('#upload-file-btn').attr('disabled', false);
+            $('.upload-btn-holder').animate({ 'marginTop': '58px' }, 200);
+            if (input.target.files && input.target.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    img_crop.croppie('bind', {
+                        url: e.target.result
+                    });
+                }
+
+                reader.readAsDataURL(input.target.files[0]);
+                $('.avatar-placeholder').hide();
+                $('#avatar-crop').fadeIn();
+            }
+
+
+        });
+
+        var avatar_url = /*[[@{/avatar}]]*/ '/avatar';
+
+        $('#upload-file-btn').on('click', function() {
+
+            img_crop.croppie('result', {
+                type: 'base64'
+            }).then(function(file) {
+                var image_data = { image: file };
+
+                $.ajax({
+                    type: "POST",
+                    url: avatar_url,
+                    data: JSON.stringify(image_data),
+                    contentType: "application/json",
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+            });
+
+
+            });
+            
+            
+        });
+
+
+
+        $('.item').on('click', function(e) {
+            viewListing($(this).attr('data-id'));
+        });
+
+        var view_listing_url = /*[[@{/marketplace/}]]*/ '/marketplace/';
+        var delete_url = /*[[@{/marketplace/delete/}]]*/ '/marketplace/delete/';
+        
+        function viewListing(data_id) {
+            var get_listing = view_listing_url + data_id;
+            console.log(get_listing);
+            $.ajax({
+                type: "POST",
+                url: get_listing,
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#show-listing-title').html(data.title);
+                    $('#show-listing-viewcount').html(data.viewCount);
+
+                    if (data.category === 'ebook') {
+                        $('#show-listing-category').html('eBooks');
+                    } else if (data.category === 'textbook') {
+                        $('#show-listing-category').html('Textbooks');
+                    } else if (data.category === 'coursenote') {
+                        $('#show-listing-category').html('Course Notes');
+                    } else if (data.category === 'coursematerial') {
+                        $('#show-listing-category').html('Past Course Material');
+                    } else if (data.category === 'utencil') {
+                        $('#show-listing-category').html('Utencils');
+                    } else if (data.category === 'misc') {
+                        $('#show-listing-category').html('Miscellaneous');
+                    } else if (data.category === 'electronic') {
+                        $('#show-listing-category').html('Electronics');
+                    } else if (data.category === 'clothing') {
+                        $('#show-listing-category').html('Clothing Apparel');
+                    }
+
+                    
+                    $('#show-listing-user').html(data.username);
+                    $('#show-listing-desc').html(data.description);
+                    $('#show-listing-price').html(data.price);
+                    $('#show-listing-phone').html(data.phoneNo);
+                    $('#show-listing-email').html(data.email);
+                    if (data.image != null) {
+                        $('.img-holder').html('<img src="' + data.image + '" />');
+                    } else {
+                        $('.img-holder').html('<i class="fas fa-book"></i>');
+                    }
+                        //Create the delete button here
+                    var delete_button = $(document.createElement('button'));
+                    delete_button.addClass('btn');
+                    delete_button.addClass('btn-danger');
+                    delete_button.attr('id', 'delete-listing-button');
+                    delete_button.attr('type', 'button');
+                    delete_button.html('Delete');
+                    $('#view-listing').on('hidden.bs.modal', function () {
+                        delete_button.remove();
+                    })
+                    delete_button.on('click', function(){
+                        $.ajax({
+                            type: "DELETE",
+                            url: delete_url + data.id,
+                            success: function () {
+                                console.log(data.id);
+                                $('.item[data-id="' + data.id + '"]').remove();
+                                $('#view-listing').modal('hide');
+                            },
+                            error: function (data) {
+                                console.log('An error occurred.');
+                            },
+                        });
+                    });
+
+                    $('#view-listing-btns').prepend(delete_button);
+                
+
+                    $('#view-listing').modal('show');
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+
+        }
+
+        function insert_result(resultEntry) {
+            console.log(resultEntry);
+            var elmt = document.createElement('div');
+            elmt.className = "row thread";
+            var url = encodeURI(resultEntry.path)
+            var tags = resultEntry.tags.replace( /;/g , ', ')
+            var res = `
+                <div class="col-sm-9 file-title">
+                    <a href=${url}>${resultEntry.title}</a>
+                    <label>Last Modified: ${resultEntry.lastModified}</label>                   
+                </div>
+
+                <div class="col-sm-3 thread-tags">  
+                    <i class="fa fa-tags" aria-hidden="false"></i>
+                    <label>Tags</label>
+                    <div class="col-sm-12 tag-holder">`;
+
+            tags.split(",").forEach(function(tag) {
+        
+                res += `<label>${tag}</label>`;
+
+            });
+            res += `</div>
+                    </div>`;
+            elmt.innerHTML = res;
+            document.querySelector("#results").append(elmt); 
+        }
+
+
+
+
+    });
+  </script>
+  
+</body>
+</html>

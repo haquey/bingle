@@ -1,0 +1,15 @@
+body {
+    background-color: #f0f0f0;
+}
+
+.radio-holder::after {
+    content: '';
+}
+
+p {
+    background-color: #f0f0f0;
+    color: #363636;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}

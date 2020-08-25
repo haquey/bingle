@@ -1,0 +1,13 @@
+Class name: ListingController
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Routes urls/paths to serve views based on the Marketplace portion of the site
+* Creates, updates and deletes "Listing" models
+
+Collaborators:
+* RestController (SpringMVC library)
+* Listing

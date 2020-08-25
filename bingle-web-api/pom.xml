@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.bingle</groupId>
+	<artifactId>bingle-web-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>bingle-web-api</name>
+	<description>A multi-faceted search web application</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>7.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>7.3.1</version>
+		</dependency>
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-highlighter</artifactId>
+      <version>7.3.1</version>
+    </dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>1.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>1.18</version>
+		</dependency>
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+		<dependency>
+		    <groupId>com.google.cloud</groupId>
+		    <artifactId>google-cloud-storage</artifactId>
+		    <version>1.37.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.cloud</groupId>
+		    <artifactId>google-cloud-datastore</artifactId>
+		    <version>1.38.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>18.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.google.cloud</groupId>
+		  <artifactId>google-cloud-vision</artifactId>
+		  <version>1.35.0</version>
+		</dependency>
+		<dependency>
+	      <groupId>com.google.api-client</groupId>
+	      <artifactId>google-api-client</artifactId>
+	      <version>1.23.0</version>
+	    </dependency>
+		<dependency>
+		    <groupId>com.google.protobuf</groupId>
+		    <artifactId>protobuf-java</artifactId>
+		    <version>3.6.0</version>
+		</dependency>
+	    <dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-vision</artifactId>
+		    <version>v1-rev388-1.24.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-storage</artifactId>
+		    <version>v1-rev116-1.23.0</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-oauth2</artifactId>
+		    <version>v2-rev139-1.24.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-datastore-protobuf</artifactId>
+		    <version>v1beta2-rev1-4.0.0</version>
+		</dependency>
+		<dependency>
+    <groupId>com.google.apis</groupId>
+    <artifactId>google-api-services-cloudbuild</artifactId>
+    <version>v1-rev755-1.24.1</version>
+</dependency>
+		
+			<dependency>
+	    <groupId>com.google.apis</groupId>
+	    <artifactId>google-api-services-cloudresourcemanager</artifactId>
+	    <version>v2-rev25-1.24.1</version>
+	</dependency>
+		
+		<dependency>
+		    <groupId>com.google.api.grpc</groupId>
+		    <artifactId>proto-google-cloud-vision-v1</artifactId>
+		    <version>1.20.0</version>
+		</dependency>
+			
+
+		 
+    <dependency>
+      <groupId>edu.uci.ics</groupId>
+      <artifactId>crawler4j</artifactId>
+      <version>4.4.0</version>
+    </dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

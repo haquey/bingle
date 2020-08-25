@@ -1,0 +1,13 @@
+Class name: SearchIndex
+
+Parent class (if any): None
+
+Classname Subclasses (if any): SearchUploads, SearchListings, SearchPosts, SearchThreads
+
+Responsibilities:
+* Takes keywords provided by the user and queries that database pertaining to file uploads, marketplace listings, and posts
+* Will filter results based on given parameters
+
+Collaborators:
+* Index
+* MongoRepo

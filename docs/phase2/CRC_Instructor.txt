@@ -1,0 +1,16 @@
+Class name: Instructor 
+
+Parent class (if any): Account 
+
+Classname Subclasses (if any): None 
+
+Responsibilities: 
+
+* Handles inscturctor specific privliges such as: 
+	Deleting threads 
+	Deleting listings 
+	Deleting files 
+	Can pin specific threads 
+
+Collaborators:
+* MongoRepo

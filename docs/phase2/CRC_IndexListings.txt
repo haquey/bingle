@@ -1,0 +1,14 @@
+Class name: IndexListings
+
+Parent class (if any): Index
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Creates/Updates indexed document information with new name-value pairs pertaining to market place
+* Deletes previously indexed documents pertaining to market place
+
+Collaborators:
+* MongoRepo
+* ApacheUtility
+* Listing

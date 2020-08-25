@@ -1,0 +1,14 @@
+Class name: Post
+
+Parent class (if any): None
+
+Classname Subclasses (if any): None
+
+Responsibilities:
+* Object containing information regarding Post instances
+* Creates, updates and deletes Posts from the database
+
+Collaborators:
+* Tag
+* Account
+* MongoRepo
