@@ -3,6 +3,9 @@
 Bingle is a robust search engine application designed for students and instructors. In addition to being able to search files by content, title and tags, Bingle also comes equipped
 with a fully functional discussion board, marketplace and webcrawler.
 
+## Demo Video
+- https://www.youtube.com/watch?v=wWsSgXAMAYs
+
 ## Table of content
 
 - [Installation](#markdown-header-installation)
